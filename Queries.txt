@@ -1,0 +1,65 @@
+/* Query 1 */
+SELECT COUNT(I.InvoiceId) Purchases, G.Name
+FROM Customer C
+JOIN Invoice I ON C.CustomerId = I.CustomerId
+JOIN InvoiceLine L ON I.InvoiceId = L.InvoiceId
+JOIN Track T ON L.TrackId = T.TrackId
+JOIN Genre G ON T.GenreId = G.GenreId
+GROUP BY 2
+ORDER BY 1 DESC
+LIMIT 10;
+
+/* Query 2 */
+SELECT C.CustomerId, C.Email, C.FirstName, C.LastName, G.Name, SUM(I.Total)
+FROM Customer C
+JOIN Invoice I
+ON I.CustomerId = C.CustomerId
+JOIN InvoiceLine L
+ON I.InvoiceId = L.InvoiceId
+JOIN Track T
+ON T.TrackId = L.TrackId
+JOIN Genre G
+ON G.GenreId = T.GenreId
+WHERE G.Name = 'Rock'
+GROUP BY 1
+ORDER BY 6 DESC
+LIMIT 10;
+
+/* Query 3 */
+WITH T1 AS (SELECT C.CustomerId, C.Email, C.FirstName, C.LastName, G.Name, SUM(I.Total)
+FROM Customer C
+JOIN Invoice I
+ON I.CustomerId = C.CustomerId
+JOIN InvoiceLine L
+ON I.InvoiceId = L.InvoiceId
+JOIN Track T
+ON T.TrackId = L.TrackId
+JOIN Genre G
+ON G.GenreId = T.GenreId
+WHERE G.Name = 'Rock'
+GROUP BY 1
+ORDER BY 6 DESC
+LIMIT 10)
+SELECT C.CustomerId, C.FirstName, C.LastName, G.Name, SUM(I.Total)
+FROM Customer C
+JOIN Invoice I
+ON I.CustomerId = C.CustomerId
+JOIN InvoiceLine L
+ON I.InvoiceId = L.InvoiceId
+JOIN Track T
+ON T.TrackId = L.TrackId
+JOIN Genre G
+ON G.GenreId = T.GenreId
+JOIN T1 
+ON T1.CustomerId = C.CustomerId
+WHERE G.Name <> 'Rock'
+GROUP BY 1
+ORDER BY 5 DESC;
+
+/* Query 4 */
+SELECT COUNT(L.Quantity) Total_Sold,STRFTIME('%Y', I.InvoiceDate) Order_Date
+FROM Invoice I
+JOIN InvoiceLine L
+ON I.InvoiceId = L.InvoiceId
+GROUP BY 2
+ORDER BY 2;

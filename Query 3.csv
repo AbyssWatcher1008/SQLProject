@@ -1,0 +1,11 @@
+CustomerId,FirstName,LastName,Name,SUM(I.Total)
+7,Astrid,Gruber,Metal,201.22
+48,Johannes,Van der Berg,Alternative & Punk,154.62
+49,Stanisław,Wójcik,Latin,143.55
+18,Michelle,Brooks,Latin,133.65
+50,Enrique,Muñoz,Metal,132.66
+38,Niklas,Schröder,Latin,124.74
+8,Daan,Peeters,Metal,124.74
+9,Kara,Nielsen,Metal,114.84
+29,Robert,Brown,Latin,107.91
+10,Eduardo,Martins,Latin,90.09
